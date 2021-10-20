@@ -7,6 +7,7 @@ import { Page, Text, View, Document, StyleSheet, Image } from '@react-pdf/render
 import QRCode from 'qrcode.react';
 
 import codes from '../public/codes';
+import logo from '../public/google.png';
 
 const Index = () => {
   const [isClient, setIsClient] = useState(false);
@@ -17,22 +18,49 @@ const Index = () => {
 
   const styles = StyleSheet.create({
     page: {
-      flexDirection: 'column',
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      width: '100%',
+      maxWidth: 1890,
     },
     section1: {
-      width: '100%',
-      margin: 10,
-      padding: 10,
-      flexGrow: 1,
+      display: 'flex',
+      justifyContent: 'center',
+      marginLeft: 106,
+    },
+    logo: {
+      width: 472,
+      height: 151,
+    },
+    section2: {
+      display: 'flex',
+      flexDirection: 'row',
+      flexWrap: 'nowrap',
+      marginRight: 106,
+    },
+    textWrapper: {
+      display: 'flex',
+      flexDirection: 'column',
+      width: 200,
+      justifyContent: 'flex-end',
+      textAlign: 'left',
+      marginRight: 60,
     },
     img: {
-      marginRight: 10,
-      width: 550,
+      width: 227,
+      height: 227,
     },
-    text: {
-      fontSize: 40,
-      textAlign: 'center',
-      marginBottom: 20,
+    text1: {
+      fontSize: 45,
+      fontWeight: 400,
+      opacity: 0.5,
+      marginBottom: 15,
+    },
+    text2: {
+      fontSize: 76,
+      fontWeight: 500,
     },
   });
 
@@ -44,7 +72,7 @@ const Index = () => {
             <QRCode
               id={qr.qr}
               value={qr.qr}
-              size={550}
+              size={227}
               bgColor={'#fff'}
               fgColor={'#000'}
             />
@@ -62,17 +90,26 @@ const Index = () => {
           const qrCodeDataUri = qrCodeCanvas.toDataURL('image/jpg', 0.3);
 
           return (
-            <Page key={i} size='A4' style={styles.page}>
+            <Page key={i} size={{ width: 1890, height: 374 }} style={styles.page}>
               <View style={styles.section1}>
+                <Image
+                  alt='googleLogo'
+                  style={styles.logo}
+                  src={{ uri: 'http://localhost:3000/google.png' }}
+                />
+              </View>
+              <View style={styles.section2}>
+                {/* <Text style={styles.text}>{qr['nr miejsca']}</Text> */}
+                <View style={styles.textWrapper}>
+                  <Text style={styles.text1}>Place</Text>
+                  <Text style={styles.text2}>{qr['nr miejsca']}</Text>
+                </View>
                 <Image
                   alt='qr'
                   style={styles.img}
                   allowDangerousPaths
                   src={{ uri: qrCodeDataUri }}
                 />
-              </View>
-              <View>
-                <Text style={styles.text}>{qr['nr miejsca']}</Text>
               </View>
             </Page>
           );
