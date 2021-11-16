@@ -2,11 +2,26 @@ import { PDFDownloadLink } from '@react-pdf/renderer';
 
 import React, { useEffect, useState } from 'react';
 
-import { Page, Text, View, Document, StyleSheet, Image } from '@react-pdf/renderer';
+import { Page, Text, View, Document, StyleSheet, Image, Font } from '@react-pdf/renderer';
+
+Font.register({
+  family: 'Merriweather Sans',
+  fonts: [
+    { src: '/Merriweather_Sans/static/MerriweatherSans-Regular.ttf' }, // font-style: normal, font-weight: normal
+    {
+      src: '/Merriweather_Sans/static/MerriweatherSans-ExtraBold.ttf',
+      fontWeight: 800,
+    },
+    {
+      src: '/Merriweather_Sans/static/MerriweatherSans-Bold.ttf',
+      fontWeight: 700,
+    },
+  ],
+});
 
 import QRCode from 'qrcode.react';
 
-import codes from '../public/googleCodes';
+import codes from '../public/codes';
 import logo from '../public/google.png';
 
 const Index = () => {
@@ -22,47 +37,66 @@ const Index = () => {
     page: {
       display: 'flex',
       flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
       width: '100%',
-      maxWidth: Math.floor(500 / pxToMm),
+      maxHeight: Math.floor(420 / pxToMm),
+      maxWidth: Math.floor(594 / pxToMm),
+      marginLeft: Math.floor(28 / pxToMm),
+      marginTop: Math.floor(28 / pxToMm),
+      marginBottom: Math.floor(28 / pxToMm),
+      fontFamily: 'Merriweather Sans',
     },
     section1: {
       display: 'flex',
-      justifyContent: 'center',
-      marginLeft: Math.floor(28 / pxToMm),
+      flexDirection: 'column',
+      flexWrap: 'nowrap',
+      width: Math.floor(238 / pxToMm),
+      paddingRight: Math.floor(36 / pxToMm),
+      borderRight: `${Math.floor(4 / pxToMm)} solid #9D9D9C`,
+      maxHeight: Math.floor(361 / pxToMm),
+      marginRight: Math.floor(32 / pxToMm),
     },
-    logo: {
-      width: Math.floor(125 / pxToMm),
-      height: Math.floor(40 / pxToMm),
+    img: {
+      width: Math.floor(198 / pxToMm),
+      height: Math.floor(198 / pxToMm),
+      marginBottom: Math.floor(16 / pxToMm),
+    },
+    textSection1: {
+      fontSize: Math.floor(12 / pxToMm),
+      fontWeight: 700,
+      textAlign: 'center',
     },
     section2: {
       display: 'flex',
-      flexDirection: 'row',
-      flexWrap: 'nowrap',
+      flexDirection: 'column',
+      justifyContent: 'flex-end',
+      maxHeight: Math.floor(380 / pxToMm),
       marginRight: Math.floor(28 / pxToMm),
     },
     textWrapper: {
       display: 'flex',
       flexDirection: 'column',
-      width: Math.floor(53 / pxToMm),
-      justifyContent: 'flex-end',
-      textAlign: 'left',
-      marginRight: Math.floor(16 / pxToMm),
     },
-    img: {
-      width: Math.floor(60 / pxToMm),
-      height: Math.floor(60 / pxToMm),
+    textWrapper2: {
+      display: 'flex',
+      flexDirection: 'row',
+      width: '100%',
+      flexWrap: 'nowrap',
     },
     text1: {
-      fontSize: Math.floor(12 / pxToMm),
-      fontWeight: 400,
-      opacity: 0.5,
-      marginBottom: Math.floor(4 / pxToMm),
+      fontSize: Math.floor(24 / pxToMm),
+      fontWeight: 800,
+      marginRight: Math.floor(8 / pxToMm),
     },
     text2: {
-      fontSize: Math.floor(20 / pxToMm),
-      fontWeight: 500,
+      fontSize: Math.floor(24 / pxToMm),
+      fontWeight: 800,
+
+      opacity: 0.5,
+    },
+    text3: {
+      marginTop: Math.floor(8 / pxToMm),
+      fontSize: Math.floor(84 / pxToMm),
+      fontWeight: 800,
     },
   });
 
@@ -74,7 +108,7 @@ const Index = () => {
             <QRCode
               id={qr.qr}
               value={qr.qr}
-              size={Math.floor(60 / pxToMm)}
+              size={Math.floor(198 / pxToMm)}
               bgColor={'#fff'}
               fgColor={'#000'}
             />
@@ -94,28 +128,27 @@ const Index = () => {
           return (
             <Page
               key={i}
-              size={{ width: Math.floor(500 / pxToMm), height: Math.floor(99 / pxToMm) }}
+              size={{ width: Math.floor(594 / pxToMm), height: Math.floor(420 / pxToMm) }}
               style={styles.page}
             >
               <View style={styles.section1}>
-                <Image
-                  alt='googleLogo'
-                  style={styles.logo}
-                  src={{ uri: 'http://localhost:3000/google.png' }}
-                />
-              </View>
-              <View style={styles.section2}>
-                {/* <Text style={styles.text}>{qr['nr miejsca']}</Text> */}
-                <View style={styles.textWrapper}>
-                  <Text style={styles.text1}>Place</Text>
-                  <Text style={styles.text2}>{qr['nr miejsca']}</Text>
-                </View>
                 <Image
                   alt='qr'
                   style={styles.img}
                   allowDangerousPaths
                   src={{ uri: qrCodeDataUri }}
                 />
+                <Text style={styles.textSection1}>Kod do zeskanowania w aplikacji</Text>
+                <Text style={styles.textSection1}>budynkowej</Text>
+              </View>
+              <View style={styles.section2}>
+                <View style={styles.textWrapper}>
+                  <View style={styles.textWrapper2}>
+                    <Text style={styles.text1}>Miejsce</Text>
+                    <Text style={styles.text2}>Place</Text>
+                  </View>
+                  <Text style={styles.text3}>{qr['nr miejsca']}</Text>
+                </View>
               </View>
             </Page>
           );
