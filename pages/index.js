@@ -6,7 +6,7 @@ import { Page, Text, View, Document, StyleSheet, Image } from '@react-pdf/render
 
 import QRCode from 'qrcode.react';
 
-import codes from '../public/codes';
+import codes from '../public/googleCodes';
 import logo from '../public/google.png';
 
 const Index = () => {
@@ -16,6 +16,8 @@ const Index = () => {
     setIsClient(true);
   }, []);
 
+  const pxToMm = 0.35196;
+
   const styles = StyleSheet.create({
     page: {
       display: 'flex',
@@ -23,43 +25,43 @@ const Index = () => {
       justifyContent: 'space-between',
       alignItems: 'center',
       width: '100%',
-      maxWidth: 1890,
+      maxWidth: Math.floor(500 / pxToMm),
     },
     section1: {
       display: 'flex',
       justifyContent: 'center',
-      marginLeft: 106,
+      marginLeft: Math.floor(28 / pxToMm),
     },
     logo: {
-      width: 472,
-      height: 151,
+      width: Math.floor(125 / pxToMm),
+      height: Math.floor(40 / pxToMm),
     },
     section2: {
       display: 'flex',
       flexDirection: 'row',
       flexWrap: 'nowrap',
-      marginRight: 106,
+      marginRight: Math.floor(28 / pxToMm),
     },
     textWrapper: {
       display: 'flex',
       flexDirection: 'column',
-      width: 200,
+      width: Math.floor(53 / pxToMm),
       justifyContent: 'flex-end',
       textAlign: 'left',
-      marginRight: 60,
+      marginRight: Math.floor(16 / pxToMm),
     },
     img: {
-      width: 227,
-      height: 227,
+      width: Math.floor(60 / pxToMm),
+      height: Math.floor(60 / pxToMm),
     },
     text1: {
-      fontSize: 45,
+      fontSize: Math.floor(12 / pxToMm),
       fontWeight: 400,
       opacity: 0.5,
-      marginBottom: 15,
+      marginBottom: Math.floor(4 / pxToMm),
     },
     text2: {
-      fontSize: 76,
+      fontSize: Math.floor(20 / pxToMm),
       fontWeight: 500,
     },
   });
@@ -72,7 +74,7 @@ const Index = () => {
             <QRCode
               id={qr.qr}
               value={qr.qr}
-              size={227}
+              size={Math.floor(60 / pxToMm)}
               bgColor={'#fff'}
               fgColor={'#000'}
             />
@@ -90,7 +92,11 @@ const Index = () => {
           const qrCodeDataUri = qrCodeCanvas.toDataURL('image/jpg', 0.3);
 
           return (
-            <Page key={i} size={{ width: 1890, height: 374 }} style={styles.page}>
+            <Page
+              key={i}
+              size={{ width: Math.floor(500 / pxToMm), height: Math.floor(99 / pxToMm) }}
+              style={styles.page}
+            >
               <View style={styles.section1}>
                 <Image
                   alt='googleLogo'
