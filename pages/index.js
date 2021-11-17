@@ -6,7 +6,7 @@ import { Page, Text, View, Document, StyleSheet, Image } from '@react-pdf/render
 
 import QRCode from 'qrcode.react';
 
-import codes from '../public/googleCodes';
+import codes from '../public/codes18';
 import logo from '../public/google.png';
 
 const Index = () => {
