@@ -6,7 +6,7 @@ import { Page, Text, View, Document, StyleSheet, Image } from '@react-pdf/render
 
 import QRCode from 'qrcode.react';
 
-import codes from '../public/codes18';
+import codes from '../public/codes';
 import logo from '../public/google.png';
 
 const Index = () => {
@@ -32,8 +32,19 @@ const Index = () => {
       justifyContent: 'center',
       marginLeft: Math.floor(28 / pxToMm),
     },
+    sectionMiddle: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+    },
+    text: {
+      fontSize: Math.floor(12 / pxToMm),
+      fontWeight: 500,
+      opacity: 0.5,
+      textTransform: 'uppercase',
+    },
     logo: {
-      width: Math.floor(125 / pxToMm),
+      width: Math.floor(102 / pxToMm),
       height: Math.floor(40 / pxToMm),
     },
     section2: {
@@ -46,9 +57,9 @@ const Index = () => {
       display: 'flex',
       flexDirection: 'column',
       width: Math.floor(53 / pxToMm),
-      justifyContent: 'flex-end',
+      justifyContent: 'center',
       textAlign: 'left',
-      marginRight: Math.floor(16 / pxToMm),
+      marginRight: Math.floor(20 / pxToMm),
     },
     img: {
       width: Math.floor(60 / pxToMm),
@@ -99,15 +110,16 @@ const Index = () => {
             >
               <View style={styles.section1}>
                 <Image
-                  alt='googleLogo'
+                  alt='logo'
                   style={styles.logo}
-                  src={{ uri: 'http://localhost:3000/google.png' }}
+                  src={{ uri: 'http://localhost:3000/logo2.png' }}
                 />
               </View>
+              <View style={styles.sectionMiddle}>
+                <Text style={styles.text}>{qr.type}</Text>
+              </View>
               <View style={styles.section2}>
-                {/* <Text style={styles.text}>{qr['nr miejsca']}</Text> */}
                 <View style={styles.textWrapper}>
-                  <Text style={styles.text1}>Place</Text>
                   <Text style={styles.text2}>{qr['nr miejsca']}</Text>
                 </View>
                 <Image
